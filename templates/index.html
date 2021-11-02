@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+<!-- head -->
+{% block head %}
+<title>Home</title>
+{% endblock %}
+<!-- head -->
+<!-- body -->
+{% block body %}
+<section class="dashboard">
+  <h1 class="dashboard__heading">Home</h1>
+  <article class="weather-card">
+    <div class="weather-card__wrapper">
+      <p class="weather-card__date">{{current_weather.date}}</p>
+      <div class="weather-card__column weather-card__column--top">
+        <figure class="weather-card__weather-img">
+          <img
+            src="{{url_for('static', filename='img/' + current_weather.icon + '.png')}}"
+            alt="dummy"
+          />
+        </figure>
+        <p class="weather-card__temp">{{current_weather.temp}}<sup>°C</sup></p>
+      </div>
+      <div class="weather-card__column">
+        <p>{{current_weather.description | title}}</p>
+        <p>
+          <i class="fas fa-map-marker-alt icon-location"></i
+          >{{current_weather.location}}
+        </p>
+      </div>
+    </div>
+  </article>
+  <ul class="weather-forecast">
+    {% for forecast in weather_forecast %}
+    <li class="weather-forecast__item">
+      <figure class="weather-forecast__item-img">
+        <img
+          src="{{url_for('static', filename='img/' + forecast.icon + '.png')}}"
+          alt=""
+        />
+      </figure>
+      <div class="weather-forecast__item-info">
+        <p class="weather-forecast__item-date">{{forecast.date}}</p>
+        <p class="weather-forecast__item-weather">{{forecast.description}}</p>
+        <p class="weather-forecast__item-temp">{{forecast.temp}}°C</p>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}

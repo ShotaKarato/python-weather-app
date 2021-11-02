@@ -1,0 +1,9 @@
+<!-- {% for key, values in prefectures.items() %}
+<p>{{key}}</p>
+<ul>
+  {% for value in values %}
+  <li>{{value}}</li>
+  {% endfor %}
+</ul>
+{% endfor %} -->
+<!-- body -->
