@@ -2,9 +2,18 @@
 from flask import Flask, render_template
 import requests
 from datetime import date 
+import os
+from os.path import join, dirname
+from dotenv import load_dotenv
 
 # app instantiation
 app = Flask(__name__)
+
+# environmental variable
+load_dotenv(verbose=True)
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
+api_key = os.environ.get("API_KEY")
 
 # prefecture data
 prefectures = {
@@ -27,7 +36,7 @@ def home():
   location = geo_data['city']
 
   # get weather info by city name
-  get_current_weather = requests.get(f"http://api.openweathermap.org/data/2.5/weather?q={location}&appid=83e91ed1ad25a545edf00da7b9f395f4&units=metric")
+  get_current_weather = requests.get(f"http://api.openweathermap.org/data/2.5/weather?q={location}&appid={api_key}&units=metric")
   data = get_current_weather.json()
   
   # weather data of current location
@@ -43,7 +52,7 @@ def home():
   # API call
   lat = data.get("coord").get("lat")
   lon = data.get("coord").get("lon")
-  get_forecast = requests.get(f"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=current,minutely,hourly&appid=83e91ed1ad25a545edf00da7b9f395f4&units=metric")
+  get_forecast = requests.get(f"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=current,minutely,hourly&appid={api_key}&units=metric")
   data = get_forecast.json()
   # function for mapping the necessary info
   def make_forcast(obj):
@@ -58,6 +67,10 @@ def home():
 
 
   return render_template("index.html", current_weather=current_weather, weather_forecast=weather_forecast)
+
+@app.route("/regions")
+def regions():
+  return render_template("index.html")
 
 # server setup
 if __name__ == "__main__":
