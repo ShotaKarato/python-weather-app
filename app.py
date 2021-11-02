@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 # app instantiation
 app = Flask(__name__)
 
-# environmental variable
+# environment variable
 load_dotenv(verbose=True)
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
