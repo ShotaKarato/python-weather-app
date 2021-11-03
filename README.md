@@ -7,7 +7,7 @@ This was created during my time as a student at Code Chrysalis.
 Here is a simple weather app which uses Python 🐍 for the backend and Flask 🌶 for the frontend!\
 I listed out the basic functionality this app has.
 
-1. Display the weather of user's current location.
+1. Display the weather of user's current location.\
    <img src="https://github.com/ShotaKarato/python-weather-app/blob/main/img-readme/img-01.png" width="250" height="547">
 2. Display the weather forecast of that location for the next 7 days
 3. Let you check the weather of different regions in Japan.
