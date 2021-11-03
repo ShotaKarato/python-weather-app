@@ -35,7 +35,6 @@ def home():
     "date": date.today(),
     "time": datetime.now().strftime("%H"),
     "location": location,
-    "temp": int(data["main"]["temp"]),
     "description": data.get("weather")[0].get("description"),
     "icon": data.get("weather")[0].get("icon")[0:2]
   }
@@ -76,10 +75,6 @@ def regions():
     "date": date.today(),
     "time": datetime.now().strftime("%H"),
     "location": prefecture,
-    "temp": int(data.get("main").get("temp")),
-    "temp_max": int(data.get("main").get("temp_max")),
-    "temp_min": int(data.get("main").get("temp_min")),
-    "humidity": data.get("main").get("humidity"),
     "wind": data.get("wind").get("speed"),
     "description": data.get("weather")[0].get("description"),
     "icon": data.get("weather")[0].get("icon")[0:2]
