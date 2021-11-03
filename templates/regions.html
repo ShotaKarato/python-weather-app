@@ -1,7 +1,34 @@
-{% extends base.html %}
+{% extends "base.html" %}
 <!-- head -->
 {% block head %} {% endblock %}
 <!-- head -->
 <!-- body -->
-{% block body %} {% endblock %}
+{% block body %}
+<section class="dashboard">
+  <nav class="nav">
+    <ul class="nav__items">
+      <li class="nav__item">
+        <h1><a href="/">Home</a></h1>
+      </li>
+      <li class="nav__item nav__item--selected">
+        <a href="/regions">Regions</a>
+      </li>
+    </ul>
+  </nav>
+  <article class="weather-card">
+    <p><i class="fas fa-map-marker-alt mg-b4 mg-r4"></i>TBD</p>
+  </article>
+  <form action="#" method="post">
+    <select name="prefecture" id="prefecture" class="location-select">
+      <option value="">Please select a prefecture</option>
+      {% for prefecture in prefectures %}
+      <option value="{{prefecture}}" class="location-select__option">
+        {{prefecture}}
+      </option>
+      {% endfor %}
+    </select>
+    <button class="btn-submit" type="submit">Submit!</button>
+  </form>
+</section>
+{% endblock %}
 <!-- body -->

@@ -7,7 +7,16 @@
 <!-- body -->
 {% block body %}
 <section class="dashboard">
-  <h1 class="dashboard__heading">Home</h1>
+  <nav class="nav">
+    <ul class="nav__items">
+      <li class="nav__item nav__item--selected">
+        <h1>Home</h1>
+      </li>
+      <li class="nav__item">
+        <a href="/regions">Regions</a>
+      </li>
+    </ul>
+  </nav>
   <article class="weather-card">
     <div class="weather-card__wrapper">
       <p class="weather-card__date">{{current_weather.date}}</p>
@@ -23,7 +32,7 @@
       <div class="weather-card__column">
         <p>{{current_weather.description | title}}</p>
         <p>
-          <i class="fas fa-map-marker-alt icon-location"></i
+          <i class="fas fa-map-marker-alt mg-r4"></i
           >{{current_weather.location}}
         </p>
       </div>
@@ -41,7 +50,7 @@
       <div class="weather-forecast__item-info">
         <p class="weather-forecast__item-date">{{forecast.date}}</p>
         <p class="weather-forecast__item-weather">{{forecast.description}}</p>
-        <p class="weather-forecast__item-temp">{{forecast.temp}}°C</p>
+        <p class="weather-forecast__item-temp">{{forecast.temp}}°</p>
       </div>
     </li>
     {% endfor %}

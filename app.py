@@ -1,7 +1,7 @@
 # importing packages
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import requests
-from datetime import date 
+from datetime import date, datetime 
 import os
 from os.path import join, dirname
 from dotenv import load_dotenv
@@ -16,16 +16,7 @@ load_dotenv(dotenv_path)
 api_key = os.environ.get("API_KEY")
 
 # prefecture data
-prefectures = {
-  "Hokkaido": ["Hokkaido"],
-  "Tohoku": ["Akita", "Aomori", "Fukushima", "Iwate", "Miyagi", "Yamagata"],
-  "Kanto": ["Chiba", "Gunma", "Ibaraki", "Kanagawa", "Saitama", "Tochigi", "Tokyo"],
-  "Chubu": ["Aichi", "Fukui", "Gifu", "Ishikawa", "Nagano", "Niigata", "Shizuoka", "Toyama", "Yamanashi"],
-  "Kansai": ["Hyogo", "Kyoto", "Mie", "Nara", "Osaka", "Shiga", "Wakayama"],
-  "Chugoku": ["Hiroshima", "Okayama", "Shimane", "Tottori", "Yamaguchi"],
-  "Shikoku": ["Ehime", "Kagawa", "Kochi", "Tokushima"],
-  "Kyushu & Okinawa": ["Fukuoka", "Kagoshima", "Kumamoto", "Miyazaki", "Nagasaki", "Oita", "Okinawa", "Saga"]
-}
+prefectures = ["Hokkaido", "Akita", "Aomori", "Fukushima", "Iwate", "Miyagi", "Yamagata", "Chiba", "Gunma", "Ibaraki", "Kanagawa", "Saitama", "Tochigi", "Tokyo", "Aichi", "Fukui", "Gifu", "Ishikawa", "Nagano", "Niigata", "Shizuoka", "Toyama", "Yamanashi", "Hyogo", "Kyoto", "Mie", "Nara", "Osaka", "Shiga", "Wakayama", "Hiroshima", "Okayama", "Shimane", "Tottori", "Yamaguchi", "Ehime", "Kagawa", "Kochi", "Tokushima", "Fukuoka", "Kagoshima", "Kumamoto", "Miyazaki", "Nagasaki", "Oita", "Okinawa", "Saga"]
 
 # root route
 @app.route("/")
@@ -42,6 +33,7 @@ def home():
   # weather data of current location
   current_weather = {
     "date": date.today(),
+    "time": datetime.now().strftime("%H"),
     "location": location,
     "temp": int(data.get("main").get("temp")),
     "description": data.get("weather")[0].get("description"),
@@ -68,9 +60,15 @@ def home():
 
   return render_template("index.html", current_weather=current_weather, weather_forecast=weather_forecast)
 
-@app.route("/regions")
+@app.route("/regions", methods=["POST", "GET"])
 def regions():
-  return render_template("index.html")
+  if request.method == "POST":
+    prefecture = request.form["prefecture"]
+    print(prefecture)
+    return render_template("regions.html", prefectures=prefectures)
+  else:
+    return render_template("regions.html", prefectures=prefectures)
+
 
 # server setup
 if __name__ == "__main__":
