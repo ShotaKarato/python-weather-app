@@ -15,9 +15,11 @@
       </li>
     </ul>
   </nav>
-  <article class="weather-card">
+  <article class="weather-card weather-card--regions">
     {% if not pref_weather.location %}
-    <p><i class="fas fa-map-marker-alt mg-b4 mg-r4"></i>{{pref_weather}}</p>
+    <p class="weather-card__pref">
+      <i class="fas fa-map-marker-alt mg-b4 mg-r4"></i>{{pref_weather}}
+    </p>
     {% else %}
     <p class="weather-card__selected-pref">
       <i class="fas fa-map-marker-alt mg-b4 mg-r4"></i>{{pref_weather.location}}

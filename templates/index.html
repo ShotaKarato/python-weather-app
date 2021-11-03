@@ -17,45 +17,53 @@
       </li>
     </ul>
   </nav>
-  <article class="weather-card">
-    <div class="weather-card__wrapper">
-      <p class="weather-card__date">{{current_weather.date}}</p>
-      <div class="weather-card__column weather-card__column--top">
-        <figure class="weather-card__weather-img">
+  <div class="dashboard__content-wrapper">
+    <article class="weather-card">
+      <div class="weather-card__wrapper">
+        <p class="weather-card__date">{{current_weather.date}}</p>
+        <div class="weather-card__column weather-card__column--top">
+          <figure class="weather-card__weather-img">
+            <img
+              src="{{url_for('static', filename='img/' + current_weather.icon + '.png')}}"
+              alt="weather icon: {{current_weather.description}}"
+            />
+          </figure>
+          <p class="weather-card__temp">
+            {{current_weather.temp}}<sup>°C</sup>
+          </p>
+        </div>
+        <div class="weather-card__column">
+          <p>{{current_weather.description | title}}</p>
+          <p>
+            <i class="fas fa-map-marker-alt mg-r4"></i
+            >{{current_weather.location}}
+          </p>
+        </div>
+      </div>
+    </article>
+    <ul class="weather-forecast">
+      {% for i in range(1, weather_forecast|length) %}
+      <li class="weather-forecast__item">
+        <figure class="weather-forecast__item-img">
           <img
-            src="{{url_for('static', filename='img/' + current_weather.icon + '.png')}}"
-            alt="weather icon: {{current_weather.description}}"
+            src="{{url_for('static', filename='img/' + weather_forecast[i].icon + '.png')}}"
+            alt=""
           />
         </figure>
-        <p class="weather-card__temp">{{current_weather.temp}}<sup>°C</sup></p>
-      </div>
-      <div class="weather-card__column">
-        <p>{{current_weather.description | title}}</p>
-        <p>
-          <i class="fas fa-map-marker-alt mg-r4"></i
-          >{{current_weather.location}}
-        </p>
-      </div>
-    </div>
-  </article>
-  <ul class="weather-forecast">
-    {% for i in range(1, weather_forecast|length) %}
-    <li class="weather-forecast__item">
-      <figure class="weather-forecast__item-img">
-        <img
-          src="{{url_for('static', filename='img/' + weather_forecast[i].icon + '.png')}}"
-          alt=""
-        />
-      </figure>
-      <div class="weather-forecast__item-info">
-        <p class="weather-forecast__item-date">{{weather_forecast[i].date}}</p>
-        <p class="weather-forecast__item-weather">
-          {{weather_forecast[i].description}}
-        </p>
-        <p class="weather-forecast__item-temp">{{weather_forecast[i].temp}}°</p>
-      </div>
-    </li>
-    {% endfor %}
-  </ul>
+        <div class="weather-forecast__item-info">
+          <p class="weather-forecast__item-date">
+            {{weather_forecast[i].date}}
+          </p>
+          <p class="weather-forecast__item-weather">
+            {{weather_forecast[i].description}}
+          </p>
+          <p class="weather-forecast__item-temp">
+            {{weather_forecast[i].temp}}°
+          </p>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
 </section>
 {% endblock %}
