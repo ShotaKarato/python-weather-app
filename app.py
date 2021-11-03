@@ -35,7 +35,7 @@ def home():
     "date": date.today(),
     "time": datetime.now().strftime("%H"),
     "location": location,
-    "temp": int(data.get("main").get("temp")),
+    "temp": int(data["main"]["temp"]),
     "description": data.get("weather")[0].get("description"),
     "icon": data.get("weather")[0].get("icon")[0:2]
   }
