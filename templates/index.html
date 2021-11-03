@@ -24,7 +24,7 @@
         <figure class="weather-card__weather-img">
           <img
             src="{{url_for('static', filename='img/' + current_weather.icon + '.png')}}"
-            alt="dummy"
+            alt="weather icon: {{current_weather.description}}"
           />
         </figure>
         <p class="weather-card__temp">{{current_weather.temp}}<sup>°C</sup></p>

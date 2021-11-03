@@ -60,14 +60,35 @@ def home():
 
   return render_template("index.html", current_weather=current_weather, weather_forecast=weather_forecast)
 
+# route for regions
 @app.route("/regions", methods=["POST", "GET"])
 def regions():
   if request.method == "POST":
+    # assign a variable for selected prefecture
     prefecture = request.form["prefecture"]
-    print(prefecture)
-    return render_template("regions.html", prefectures=prefectures)
+
+    # make api call based on the selected prefecture
+    get_pref_weather = requests.get(f"http://api.openweathermap.org/data/2.5/weather?q={prefecture}&appid={api_key}&units=metric")
+    data = get_pref_weather.json()
+
+    # weather data of selected prefecture
+    pref_weather = {
+    "date": date.today(),
+    "time": datetime.now().strftime("%H"),
+    "location": prefecture,
+    "temp": int(data.get("main").get("temp")),
+    "temp_max": int(data.get("main").get("temp_max")),
+    "temp_min": int(data.get("main").get("temp_min")),
+    "humidity": data.get("main").get("humidity"),
+    "wind": data.get("wind").get("speed"),
+    "description": data.get("weather")[0].get("description"),
+    "icon": data.get("weather")[0].get("icon")[0:2]
+    }
+
+    print(pref_weather, type(pref_weather))
+    return render_template("regions.html", prefectures=prefectures, pref_weather=pref_weather)
   else:
-    return render_template("regions.html", prefectures=prefectures)
+    return render_template("regions.html", prefectures=prefectures, pref_weather="Please select a prefecture")
 
 
 # server setup
