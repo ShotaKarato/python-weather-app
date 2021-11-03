@@ -8,10 +8,10 @@ Here is a simple weather app which uses Python üêç for the backend and Flask ü
 I listed out the basic functionality this app has.
 
 1. Display the weather of user's current location.
-   ![app image](https://github.com/ShotaKarato/python-weather-app/blob/main/img-readme/img-01.png?raw=true|width=250)
+   <img src="https://github.com/ShotaKarato/python-weather-app/blob/main/img-readme/img-01.png" width="250" height="547">
 2. Display the weather forecast of that location for the next 7 days
 3. Let you check the weather of different regions in Japan.
-   ![app image](https://github.com/ShotaKarato/python-weather-app/blob/main/img-readme/img-03.png?raw=true|width=250)
+   ![app image](https://github.com/ShotaKarato/python-weather-app/blob/main/img-readme/img-03.png?raw=true)
 
 Although it's originally designed for mobile devices, the app is full responsive!\
 Here are some captures of the app on desktop view.
