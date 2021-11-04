@@ -2,7 +2,6 @@
 from flask import Flask, render_template, request, jsonify
 import json
 import requests
-import geocoder
 from datetime import date, datetime 
 import os
 from os.path import join, dirname
