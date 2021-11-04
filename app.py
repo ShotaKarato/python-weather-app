@@ -1,6 +1,9 @@
 # importing packages
 from flask import Flask, render_template, request
 import requests
+import geocoder
+import geopy
+from geopy.geocoders import Nominatim
 from datetime import date, datetime 
 import os
 from os.path import join, dirname
@@ -21,10 +24,9 @@ prefectures = ["Hokkaido", "Akita", "Aomori", "Fukushima", "Iwate", "Miyagi", "Y
 # root route
 @app.route("/")
 def home():
-  # get current location (city name)
-  geo_request_url = 'https://get.geojs.io/v1/ip/geo.json'
-  geo_data = requests.get(geo_request_url).json()
-  location = geo_data['city']
+  # # get current location with geocoder (city name)
+  geo_data = geocoder.ipinfo('me')
+  location = geo_data.city
 
   # get weather info by city name
   get_current_weather = requests.get(f"http://api.openweathermap.org/data/2.5/weather?q={location}&appid={api_key}&units=metric")
