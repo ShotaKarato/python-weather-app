@@ -1,9 +1,8 @@
 # importing packages
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
+import json
 import requests
 import geocoder
-import geopy
-from geopy.geocoders import Nominatim
 from datetime import date, datetime 
 import os
 from os.path import join, dirname
@@ -22,11 +21,13 @@ api_key = os.environ.get("API_KEY")
 prefectures = ["Hokkaido", "Akita", "Aomori", "Fukushima", "Iwate", "Miyagi", "Yamagata", "Chiba", "Gunma", "Ibaraki", "Kanagawa", "Saitama", "Tochigi", "Tokyo", "Aichi", "Fukui", "Gifu", "Ishikawa", "Nagano", "Niigata", "Shizuoka", "Toyama", "Yamanashi", "Hyogo", "Kyoto", "Mie", "Nara", "Osaka", "Shiga", "Wakayama", "Hiroshima", "Okayama", "Shimane", "Tottori", "Yamaguchi", "Ehime", "Kagawa", "Kochi", "Tokushima", "Fukuoka", "Kagoshima", "Kumamoto", "Miyazaki", "Nagasaki", "Oita", "Okinawa", "Saga"]
 
 # root route
-@app.route("/")
+@app.route("/", methods=["GET"])
 def home():
-  # # get current location with geocoder (city name)
-  geo_data = geocoder.ipinfo('me')
-  location = geo_data.city
+  # get current location with client ip
+  client_ip = jsonify({"ip": request.remote_addr})
+  request_url = f"https://geolocation-db.com/jsonp/{client_ip}"
+  response_data = requests.get(request_url).content.decode().split("(")[1].strip(")")
+  location = json.loads(response_data).get("state")
 
   # get weather info by city name
   get_current_weather = requests.get(f"http://api.openweathermap.org/data/2.5/weather?q={location}&appid={api_key}&units=metric")
