@@ -5,7 +5,7 @@ This was created during my time as a student at Code Chrysalis.
 ## App Description
 
 Here is a simple weather app which uses Python 🐍 for the backend and Flask 🌶 for the frontend!\
-I listed out the basic functionality this app has.\
+I listed out its basic functionalities down below.\
 [Click here](https://weather-app-python-flask.herokuapp.com/) to see the app!
 
 1. Display the weather of user's current location.\
